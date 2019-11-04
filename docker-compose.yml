@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  reverse-proxy:
+    image: traefik:v2.0
+    command:
+      - "--api.insecure=true"
+      - "--api.debug=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - webgateway
+
+networks:
+  webgateway:
+    driver: bridge
