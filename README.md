@@ -11,12 +11,15 @@ services:
     # ...
     labels:
       - traefik.enable=true
-      - traefik.docker.network=traefik_webgateway
-      - traefik.http.routers.my-container.rule=Host(`mydomain.com`)
-      - traefik.http.routers..my-container.entrypoints=web
+      - traefik.docker.network=local_traefik_webgateway
+      - traefik.http.routers.my-container.rule=Host(`mydomain.test`,`mydomain.locahost`,`mydomain.localdev`)
+      - traefik.http.routers.my-container.entrypoints=http
 
 networks:
   web:
     external:
-      name: traefik_webgateway
+      name: local_traefik_webgateway
 ```
+
+The name of the externals network it's really important.
+It can be changed in the traefik docker-compose file.
