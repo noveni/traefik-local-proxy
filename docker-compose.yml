@@ -3,12 +3,14 @@ version: '3'
 services:
   reverse-proxy:
     image: traefik:v2.0
+    restart: always
     command:
       - "--api.insecure=true"
       - "--api.debug=true"
       - "--providers.docker=true"
+      - "--providers.docker.network=local_traefik_webgateway"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
+      - "--entrypoints.http.address=:80"
     ports:
       - "80:80"
       - "8080:8080"
