@@ -1,4 +1,4 @@
-# Traefik Reverse Proxy for local develpment
+# Traefik Reverse Proxy for local development
 
 Traefik v2.0
 
@@ -26,3 +26,21 @@ networks:
 
 The name of the externals network it's really important.
 It can be changed in the traefik docker-compose file.
+
+## Adding SSL to docker and Traefik
+
+In the `devcerts/`:
+
+```sh
+mkcert mydomain.localdev "*.mydomain.localdev"
+```
+
+Using wildcards for subdomain
+
+In `config/dynamic.toml` file, add the following instructions for the newly generated certificate
+
+```toml
+[[tls.certificates]]
+  certFile = "/etc/certs/mydomain.localdev.pem"
+  keyFile = "/etc/certs/mydomain.localdev-key.pem"
+```
