@@ -14,6 +14,9 @@ services:
       - traefik.docker.network=local_traefik_webgateway
       - traefik.http.routers.my-container.rule=Host(`mydomain.test`,`mydomain.locahost`,`mydomain.localdev`)
       - traefik.http.routers.my-container.entrypoints=http
+      - traefik.http.routers.my-container-secure.rule=Host(`mydomain.test`,`mydomain.locahost`,`mydomain.localdev`)
+      - traefik.http.routers.my-container-secure.entrypoints=https
+      - traefik.http.routers.my-container-secure.tls=true
 
 networks:
   web:
