@@ -1,10 +1,17 @@
 [entryPoints]
   [entryPoints.http]
     address = ":80"
+  [entryPoints.https]
+    address = ":443"
+
 [providers]
   [providers.docker]
     network = "local_traefik_webgateway"
     exposedByDefault = false
+  [providers.file]
+    filename = "/etc/traefik/dynamic.toml"
+    watch = true
+
 [api]
   insecure = true
   dashboard = true
