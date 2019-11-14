@@ -1,0 +1,14 @@
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+[providers]
+  [providers.docker]
+    network = "local_traefik_webgateway"
+    exposedByDefault = false
+[api]
+  insecure = true
+  dashboard = true
+  debug = true
+
+[log]
+  level = "DEBUG"
