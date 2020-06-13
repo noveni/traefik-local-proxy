@@ -1,2 +1,4 @@
 /devcerts
 config/dynamic.toml
+/log/
+/.vscode/
