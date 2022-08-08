@@ -20,6 +20,12 @@
   [entryPoints.websecure] #Before calld https
     address = ":443"
 
+  [entryPoints.mysql]
+    address = ":3306"
+
+  [entryPoints.pgsql]
+    address = ":5432"
+
 ################################################################
 # Traefik logs configuration
 ################################################################
@@ -78,6 +84,14 @@
   # Default: "common"
   #
   # format = "json"
+
+[tracing]
+  servicename = "tracing"
+  [tracing.jaeger]
+    samplingParam = 1.0
+    samplingServerURL = "http://jaeger:5778/sampling"
+    samplingType = "const"
+    localAgentHostPort = "jaeger:6831"
 
 
 ################################################################
@@ -143,6 +157,8 @@
     # Default: true
     #
     exposedByDefault = false
+    watch = true
+
   [providers.file]
     filename = "/etc/traefik/dynamic.toml"
     watch = true

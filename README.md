@@ -47,3 +47,9 @@ In `config/dynamic.toml` file, add the following instructions for the newly gene
   certFile = "/etc/certs/mydomain.localdev.pem"
   keyFile = "/etc/certs/mydomain.localdev-key.pem"
 ```
+
+## Info
+
+Check https://github.com/FiloSottile/mkcert for mkcert info  
+Check https://vninja.net/2020/02/06/macos-custom-dns-resolvers/ for osx resolver  
+Check https://passingcuriosity.com/2013/dnsmasq-dev-osx/

@@ -14,8 +14,35 @@ services:
       - ./config:/etc/traefik
       - ./devcerts:/etc/certs
       - ./log:/etc/log
+    labels:
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.localstack.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      # - traefik.http.routers.dashboard.rule=Host(`traefik.localstack.localhost`)
+      - traefik.http.routers.dashboard.entrypoints=web
+      - traefik.http.routers.dashboard.service=api@internal
+      - traefik.http.services.dashboard.loadbalancer.server.port=8080
     networks:
       - webgateway
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.30
+    environment:
+      COLLECTOR_ZIPKIN_HTTP_PORT: 9411
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14250:14250"
+      - "14268:14268"
+      - "14269:14269"
+      - "9411:9411"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jaeger.rule=Host(`jaeger.localstack.localhost`)
+      - traefik.http.routers.jaeger.entrypoints=web
+      - traefik.http.routers.jaeger.service=jaeger
+      - traefik.http.services.jaeger.loadbalancer.server.port=16686
 
 networks:
   webgateway:
